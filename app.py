@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index_get():
-    return "Hello World"
+    return "<h1>Welcome to the API</h1>"
 
 @app.route('/bfhl', methods=['GET'])
 def get_operation_code():
