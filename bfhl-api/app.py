@@ -1,23 +1,28 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, jsonify
+
+
+
+
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return "Hello, World!"
+
+@app.route("/")
+def index_get():
+    return "Hello World"
 
 @app.route('/bfhl', methods=['GET'])
-def get_bfhl():
-    return jsonify({"operation_code": 1})
+def get_operation_code():
+    return jsonify({"operation_code": 1}), 200
 
-@app.route('/bfhl', methods=['POST'])
-def post_bfhl():
-    data = request.json.get('data', [])
+@app.post("/bfsl")
+def predict():
+    data = request.json.get('data')
     if not isinstance(data, list):
         return jsonify({
             "is_success": False,
-            "user_id": "your_fullname_dob",
-            "email": "your_email@xyz.com",
+            "user_id": "john_doe_17091999",
+            "email": "john@xyz.com",
             "roll_number": "ABCD123",
             "numbers": [],
             "alphabets": [],
@@ -27,15 +32,14 @@ def post_bfhl():
     numbers = [item for item in data if item.isdigit()]
     alphabets = [item for item in data if item.isalpha()]
 
+    highest_alphabet = [max(alphabets, key=str.lower)] if alphabets else []
+
     return jsonify({
         "is_success": True,
-        "user_id": "your_fullname_dob",
-        "email": "your_email@xyz.com",
+        "user_id": "john_doe_17091999",
+        "email": "john@xyz.com",
         "roll_number": "ABCD123",
         "numbers": numbers,
         "alphabets": alphabets,
-        "highest_alphabet": sorted(alphabets, reverse=True)[0] if alphabets else None
-    })
-
-if __name__ == '__main__':
-    app.run()
+        "highest_alphabet": highest_alphabet
+    }), 200
