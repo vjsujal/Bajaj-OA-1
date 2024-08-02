@@ -1,16 +1,16 @@
 {
-    "version":2,
+    "version": 2,
     "builds": [
         {
-            "src":"./index.py",
+            "src": "./wsgi.py",
             "use": "@vercel/python",
-            "config":{"pythonVersion": "3.9"}
+            "config": {"pythonVersion": "3.9"}
         }
     ],
     "routes": [
         {
-            "src":"/(.*)",
-            "dest":"/"
+            "src": "/(.*)",
+            "dest": "/wsgi.py"
         }
     ]
-  }
+}

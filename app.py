@@ -1,8 +1,4 @@
-from flask import Flask, render_template, request, jsonify
-
-
-
-
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -11,7 +7,7 @@ app = Flask(__name__)
 def index_get():
     return "<h1>Welcome to the API</h1>"
 
-@app.route('/bfhl', methods=['GET'])
+@app.get('/bfhl')
 def get_operation_code():
     return jsonify({"operation_code": 1}), 200
 
